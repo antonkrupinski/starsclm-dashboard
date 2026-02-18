@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="snow"></div>
+
+<div class="sidebar">
+  <button id="plusBtn" class="active">+</button>
+
+  <div class="profile">
+    <div id="profileCircle"></div>
+    <div id="logoutMenu" class="hidden">
+      <button id="logoutBtn">Log Out</button>
+      <div id="adminSection" class="hidden">
+        <input id="newAdminEmail" placeholder="Add admin email">
+        <button id="addAdminBtn">Add Admin</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div id="cardsContainer"></div>
+</div>
+
+<div id="popup" class="popup hidden">
+  <div class="popup-content">
+    <span id="closePopup">X</span>
+    <input id="iframeUrl" placeholder="Iframe URL">
+    <input id="imageUrl" placeholder="Image URL">
+    <button id="addCardBtn">Add</button>
+  </div>
+</div>
+
+<div id="iframeViewer" class="iframe-view hidden">
+  <span id="closeIframe">X</span>
+  <iframe id="fullIframe"></iframe>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
