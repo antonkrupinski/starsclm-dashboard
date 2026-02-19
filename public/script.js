@@ -1,11 +1,12 @@
 // Firebase config (same as login)
 const firebaseConfig = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
-  authDomain: "YOUR_FIREBASE_PROJECT.firebaseapp.com",
-  projectId: "YOUR_FIREBASE_PROJECT",
-  storageBucket: "YOUR_FIREBASE_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCWL5U3FKu0067dz4uVzz7yGm9PkqQxvkQ",
+  authDomain: "anton-871fe.firebaseapp.com",
+  projectId: "anton-871fe",
+  storageBucket: "anton-871fe.firebasestorage.app",
+  messagingSenderId: "211150176132",
+  appId: "1:211150176132:web:28f935a54120d3909a67d1",
+  measurementId: "G-ZENBQ72CC3"
 };
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
