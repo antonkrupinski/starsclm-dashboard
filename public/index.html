@@ -3,32 +3,43 @@
 <head>
   <title>Login</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
 </head>
 <body class="login-body">
   <div class="login-box">
-    <h1>Welcome</h1>
-    <button id="loginBtn">Login with Microsoft</button>
+    <h1>Login</h1>
+    <input type="email" id="emailInput" placeholder="Email">
+    <input type="password" id="passwordInput" placeholder="Password">
+    <button id="loginBtn">Login</button>
+    <p id="errorMsg" style="color:red;"></p>
   </div>
 
 <script>
-const msalConfig = {
-  auth: {
-    clientId: "YOUR_MICROSOFT_APP_CLIENT_ID",
-    redirectUri: "http://localhost:3000/dashboard.html"
-  }
-};
+  const firebaseConfig = {
+    apiKey: "YOUR_FIREBASE_API_KEY",
+    authDomain: "YOUR_FIREBASE_PROJECT.firebaseapp.com",
+    projectId: "YOUR_FIREBASE_PROJECT",
+    storageBucket: "YOUR_FIREBASE_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
 
-const msalInstance = new msal.PublicClientApplication(msalConfig);
+  document.getElementById("loginBtn").onclick = () => {
+    const email = document.getElementById("emailInput").value;
+    const password = document.getElementById("passwordInput").value;
 
-document.getElementById("loginBtn").onclick = () => {
-  msalInstance.loginPopup({
-    scopes: ["user.read"]
-  }).then(response => {
-    sessionStorage.setItem("userEmail", response.account.username);
-    window.location = "dashboard.html";
-  });
-};
+    auth.signInWithEmailAndPassword(email, password)
+      .then(userCredential => {
+        sessionStorage.setItem("userEmail", email);
+        window.location = "dashboard.html";
+      })
+      .catch(error => {
+        document.getElementById("errorMsg").innerText = error.message;
+      });
+  };
 </script>
 </body>
 </html>
