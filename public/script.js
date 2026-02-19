@@ -1,9 +1,22 @@
+// Firebase config (same as login)
+const firebaseConfig = {
+  apiKey: "YOUR_FIREBASE_API_KEY",
+  authDomain: "YOUR_FIREBASE_PROJECT.firebaseapp.com",
+  projectId: "YOUR_FIREBASE_PROJECT",
+  storageBucket: "YOUR_FIREBASE_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
 const email = sessionStorage.getItem("userEmail");
 const plusBtn = document.getElementById("plusBtn");
 const popup = document.getElementById("popup");
 const logoutMenu = document.getElementById("logoutMenu");
 const adminSection = document.getElementById("adminSection");
 
+// Fetch admins
 fetch("/admins").then(res => res.json()).then(admins => {
   if (admins.includes(email)) {
     plusBtn.classList.add("admin");
@@ -15,6 +28,7 @@ fetch("/admins").then(res => res.json()).then(admins => {
   }
 });
 
+// Add new card
 document.getElementById("addCardBtn").onclick = () => {
   const iframe = document.getElementById("iframeUrl").value;
   const image = document.getElementById("imageUrl").value;
@@ -26,15 +40,17 @@ document.getElementById("addCardBtn").onclick = () => {
   }).then(() => location.reload());
 };
 
+// Add admin
 document.getElementById("addAdminBtn").onclick = () => {
-  const email = document.getElementById("newAdminEmail").value;
+  const newEmail = document.getElementById("newAdminEmail").value;
   fetch("/add-admin", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email })
+    body: JSON.stringify({ email: newEmail })
   });
 };
 
+// Load cards
 fetch("/cards").then(res => res.json()).then(cards => {
   const container = document.getElementById("cardsContainer");
   cards.forEach(card => {
@@ -49,13 +65,17 @@ fetch("/cards").then(res => res.json()).then(cards => {
   });
 });
 
+// Close iframe popup
 document.getElementById("closeIframe").onclick = () =>
   document.getElementById("iframeViewer").classList.add("hidden");
 
+// Logout menu
 document.getElementById("profileCircle").onclick = () =>
   logoutMenu.classList.toggle("hidden");
 
+// Logout button
 document.getElementById("logoutBtn").onclick = () => {
+  auth.signOut();
   sessionStorage.clear();
   window.location = "/";
 };
