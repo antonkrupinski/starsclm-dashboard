@@ -9,15 +9,13 @@ app.use(express.static("public"));
 const ADMIN_FILE = "./data/admins.json";
 const DATA_FILE = "./data/data.json";
 
+// Create files if missing
 if (!fs.existsSync("./data")) fs.mkdirSync("./data");
-if (!fs.existsSync(ADMIN_FILE))
-  fs.writeFileSync(ADMIN_FILE, JSON.stringify(["antonkrupinski0@gmail.com"]));
-if (!fs.existsSync(DATA_FILE))
-  fs.writeFileSync(DATA_FILE, JSON.stringify([]));
+if (!fs.existsSync(ADMIN_FILE)) fs.writeFileSync(ADMIN_FILE, JSON.stringify(["antonkrupinski0@gmail.com"]));
+if (!fs.existsSync(DATA_FILE)) fs.writeFileSync(DATA_FILE, JSON.stringify([]));
 
-app.get("/admins", (req, res) => {
-  res.json(JSON.parse(fs.readFileSync(ADMIN_FILE)));
-});
+// Admin endpoints
+app.get("/admins", (req, res) => res.json(JSON.parse(fs.readFileSync(ADMIN_FILE))));
 
 app.post("/add-admin", (req, res) => {
   const { email } = req.body;
@@ -27,9 +25,8 @@ app.post("/add-admin", (req, res) => {
   res.json({ success: true });
 });
 
-app.get("/cards", (req, res) => {
-  res.json(JSON.parse(fs.readFileSync(DATA_FILE)));
-});
+// Card endpoints
+app.get("/cards", (req, res) => res.json(JSON.parse(fs.readFileSync(DATA_FILE))));
 
 app.post("/add-card", (req, res) => {
   const { iframe, image } = req.body;
