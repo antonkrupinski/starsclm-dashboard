@@ -3,20 +3,24 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json());
 app.use(express.static("public"));
 
 const ADMIN_FILE = "./data/admins.json";
 const DATA_FILE = "./data/data.json";
 
-// Create files if missing
+// Ensure data folder and files exist
 if (!fs.existsSync("./data")) fs.mkdirSync("./data");
 if (!fs.existsSync(ADMIN_FILE)) fs.writeFileSync(ADMIN_FILE, JSON.stringify(["antonkrupinski0@gmail.com"]));
 if (!fs.existsSync(DATA_FILE)) fs.writeFileSync(DATA_FILE, JSON.stringify([]));
 
-// Admin endpoints
-app.get("/admins", (req, res) => res.json(JSON.parse(fs.readFileSync(ADMIN_FILE))));
+// Get admins
+app.get("/admins", (req, res) => {
+  const admins = JSON.parse(fs.readFileSync(ADMIN_FILE));
+  res.json(admins);
+});
 
+// Add admin
 app.post("/add-admin", (req, res) => {
   const { email } = req.body;
   const admins = JSON.parse(fs.readFileSync(ADMIN_FILE));
@@ -25,9 +29,13 @@ app.post("/add-admin", (req, res) => {
   res.json({ success: true });
 });
 
-// Card endpoints
-app.get("/cards", (req, res) => res.json(JSON.parse(fs.readFileSync(DATA_FILE))));
+// Get cards
+app.get("/cards", (req, res) => {
+  const cards = JSON.parse(fs.readFileSync(DATA_FILE));
+  res.json(cards);
+});
 
+// Add card
 app.post("/add-card", (req, res) => {
   const { iframe, image } = req.body;
   const cards = JSON.parse(fs.readFileSync(DATA_FILE));
@@ -36,4 +44,4 @@ app.post("/add-card", (req, res) => {
   res.json({ success: true });
 });
 
-app.listen(3000, () => console.log("🔥 Server running on http://localhost:3000"));
+app.listen(3000, () => console.log("Server running on http://localhost:3000"));
