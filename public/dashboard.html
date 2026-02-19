@@ -1,47 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Dashboard</title>
+  <meta charset="UTF-8">
+  <title>Pro Dashboard</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
 </head>
 <body>
-<div class="snow"></div>
+  <div class="snow"></div>
 
-<div class="sidebar">
-  <button id="plusBtn" class="active">+</button>
+  <div class="sidebar">
+    <div class="logo">Dash</div>
+    <button id="plusBtn" class="active">+</button>
 
-  <div class="profile">
-    <div id="profileCircle"></div>
-    <div id="logoutMenu" class="hidden">
-      <button id="logoutBtn">Log Out</button>
-      <div id="adminSection" class="hidden">
-        <input id="newAdminEmail" placeholder="Add admin email">
-        <button id="addAdminBtn">Add Admin</button>
+    <div class="profile">
+      <div id="profileCircle"></div>
+      <div id="logoutMenu" class="hidden">
+        <button id="logoutBtn">Log Out</button>
+        <div id="adminSection" class="hidden">
+          <h4>Admin Panel</h4>
+          <input id="newAdminEmail" placeholder="Add admin email">
+          <button id="addAdminBtn">Add Admin</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="main">
-  <div id="cardsContainer"></div>
-</div>
-
-<div id="popup" class="popup hidden">
-  <div class="popup-content">
-    <span id="closePopup">X</span>
-    <input id="iframeUrl" placeholder="Iframe URL">
-    <input id="imageUrl" placeholder="Image URL">
-    <button id="addCardBtn">Add</button>
+  <div class="main">
+    <div id="cardsContainer" class="cards-container"></div>
   </div>
-</div>
 
-<div id="iframeViewer" class="iframe-view hidden">
-  <span id="closeIframe">X</span>
-  <iframe id="fullIframe"></iframe>
-</div>
+  <!-- Admin Add Card Popup -->
+  <div id="popup" class="popup hidden">
+    <div class="popup-content">
+      <span id="closePopup" class="close-btn">X</span>
+      <h3>Add New Card</h3>
+      <input id="iframeUrl" placeholder="Iframe URL">
+      <input id="imageUrl" placeholder="Image URL">
+      <button id="addCardBtn">Add Card</button>
+    </div>
+  </div>
 
-<script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
-<script src="script.js"></script>
+  <!-- Fullscreen iframe viewer -->
+  <div id="iframeViewer" class="iframe-view hidden">
+    <span id="closeIframe" class="close-btn">X</span>
+    <iframe id="fullIframe"></iframe>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
