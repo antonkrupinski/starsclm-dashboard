@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Login</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
+<meta charset="UTF-8">
+<title>Login</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
 </head>
-<body class="login-body">
-  <div class="login-box">
-    <h1>Login</h1>
-    <input type="email" id="emailInput" placeholder="Email">
-    <input type="password" id="passwordInput" placeholder="Password">
-    <button id="loginBtn">Login</button>
-    <p id="errorMsg" style="color:red;"></p>
-  </div>
+<body>
+<div class="login-box">
+  <h1>Login</h1>
+  <input type="email" id="emailInput" placeholder="Email">
+  <input type="password" id="passwordInput" placeholder="Password">
+  <button id="loginBtn">Login</button>
+  <p id="errorMsg" style="color:red;"></p>
+</div>
 
 <script>
-  const firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyCWL5U3FKu0067dz4uVzz7yGm9PkqQxvkQ",
   authDomain: "anton-871fe.firebaseapp.com",
   projectId: "anton-871fe",
@@ -24,23 +25,23 @@
   messagingSenderId: "211150176132",
   appId: "1:211150176132:web:28f935a54120d3909a67d1",
   measurementId: "G-ZENBQ72CC3"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-  document.getElementById("loginBtn").onclick = () => {
-    const email = document.getElementById("emailInput").value;
-    const password = document.getElementById("passwordInput").value;
+document.getElementById("loginBtn").onclick = () => {
+  const email = document.getElementById("emailInput").value;
+  const password = document.getElementById("passwordInput").value;
 
-    auth.signInWithEmailAndPassword(email, password)
-      .then(userCredential => {
-        sessionStorage.setItem("userEmail", email);
-        window.location = "dashboard.html";
-      })
-      .catch(error => {
-        document.getElementById("errorMsg").innerText = error.message;
-      });
-  };
+  auth.signInWithEmailAndPassword(email,password)
+    .then(()=> {
+      sessionStorage.setItem("userEmail", email);
+      window.location = "dashboard.html";
+    })
+    .catch(err=>{
+      document.getElementById("errorMsg").innerText = err.message;
+    });
+};
 </script>
 </body>
 </html>
